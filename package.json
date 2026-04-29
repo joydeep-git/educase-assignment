@@ -1,0 +1,35 @@
+{
+  "name": "educase-assignment",
+  "version": "1.0.0",
+  "description": "API for managing School data, built with Node.js, TypeScript and MySQL. Deployed on Render.",
+  "homepage": "https://github.com/joydeep-git/educase-assignment#readme",
+  "bugs": {
+    "url": "https://github.com/joydeep-git/educase-assignment/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joydeep-git/educase-assignment.git"
+  },
+  "license": "ISC",
+  "author": "Joydeep Das ( joydeep-git )",
+  "type": "module",
+  "main": "src/server.ts",
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/mysql": "^2.15.27",
+    "@types/node": "^22.4.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@types/npm": "^7.19.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql": "^2.18.1",
+    "tsx": "^4.21.0"
+  }
+}
