@@ -13,7 +13,7 @@ const errRes = (message: string, status: number): ErrorHandler => {
 
 
 // check if error from MySQL or normal
-const errRouter = (err: unknown, fallbackMessage: string): ErrorHandler => {
+const errRouter = (err: unknown, fallbackMessage: string = "Something is wrong!"): ErrorHandler => {
 
   // check for mysql2 err (has "code" prop)
   if (err && typeof err === "object" && "code" in err && typeof (err as any).code === "string") {
