@@ -24,9 +24,9 @@ export interface SchoolDataType {
 
 
 
-// School with calculated distance
+// School with distance
 export interface SchoolWithDistanceType extends SchoolDataType {
-  distance_km: number;
+  distance: string;
 }
 
 
