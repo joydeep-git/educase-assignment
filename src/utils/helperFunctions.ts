@@ -1,24 +1,8 @@
+import { Request } from "express";
+import { errRes } from "../errorHandlers/errorUtils";
+import { StatusCode } from "../types";
 
 
-// distance in km between two lat / lng points
-// taken from -> https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
-
-export const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-
-  const R = 6371; // Earth radius in km
-
-  const toRad = (deg: number) => (deg * Math.PI) / 180;
-
-  const dLat = toRad(lat2 - lat1);
-  const dLon = toRad(lon2 - lon1);
-
-  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
-
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-  return parseFloat((R * c).toFixed(4)); // in km
-
-};
 
 
 
@@ -27,3 +11,44 @@ export const isValidEmail = (email: string): boolean => {
   const re: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
   return re.test(email);
 };
+
+
+// check values
+export const fieldValidator = ({ req, validateAll, isQuery = false }: { req: Request; validateAll: boolean; isQuery?: boolean }): { lat: number, lng: number } => {
+
+  // choose the right source: query params (GET) vs body (POST)
+  const source = isQuery ? req.query : req.body;
+
+  let fields: string[] = [];
+
+  if (validateAll) {
+    fields = ["name", "address", "latitude", "longitude"];
+  } else {
+    fields = ["latitude", "longitude"];
+  }
+
+  for (const field of fields) {
+
+    const val = source[field];
+
+    if (val === undefined || val === null || (typeof val === "string" && val.trim() === "")) {
+      throw errRes(`'${field}' is required`, StatusCode.BAD_REQUEST);
+    }
+
+  }
+
+
+  const lat = parseFloat(source.latitude as string);
+  if (isNaN(lat) || lat < -90 || lat > 90) {
+    throw errRes("latitude must be a number between -90 and 90", StatusCode.BAD_REQUEST);
+  }
+
+
+  const lng = parseFloat(source.longitude as string);
+  if (isNaN(lng) || lng < -180 || lng > 180) {
+    throw errRes("longitude must be a number between -180 and 180", StatusCode.BAD_REQUEST);
+  }
+
+  return { lat, lng };
+
+}
