@@ -79,12 +79,6 @@ class Server {
     // school routes
     this.app.use("/api", schoolRouter);
 
-    this.app.get("/api/test", (_req: Request, res: Response) => {
-      return res.status(200).json({
-        message: "OK!",
-      })
-    })
-
   }
 
 
