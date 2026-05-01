@@ -12,10 +12,9 @@
   },
   "license": "ISC",
   "author": "Joydeep Das ( joydeep-git )",
-  "type": "module",
-  "main": "src/server.ts",
+  "main": "dist/server.js",
   "scripts": {
-    "build": "tsc && tsc-alias",
+    "build": "tsc",
     "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js"
   },
