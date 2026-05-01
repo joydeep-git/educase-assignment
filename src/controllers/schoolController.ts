@@ -64,6 +64,29 @@ class SchoolController {
   }
 
 
+
+  // keep render and sql alive
+  public async test(_req: Request, res: Response) {
+
+    try {
+      await schoolModel.keepAlive();
+
+      return res.status(StatusCode.OK).json({
+        success: true,
+        message: "Render and SQL are alive!",
+      });
+
+    } catch {
+
+      return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: "SQL server got inactive, it will take few seconds to start again. Please try again!",
+      });
+
+    }
+  }
+
+
 }
 
 

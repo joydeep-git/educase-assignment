@@ -6,6 +6,14 @@ import { CreateSchoolType, SchoolDataType, SchoolWithDistanceType } from "../typ
 class SchoolModel {
 
 
+  // free MySQL stops after few min of inactivity, so we need to keep it alive
+  public async keepAlive() {
+
+    await mysql.db.query("SELECT 1");
+
+  }
+
+
   // add school into database
   public async addSchool({ name, address, latitude, longitude }: CreateSchoolType): Promise<SchoolDataType> {
 

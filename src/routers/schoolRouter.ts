@@ -14,6 +14,8 @@ class SchoolRouter {
 
     this.router.get("/listSchools", schoolController.listSchools);
 
+    this.router.get("/test", schoolController.test);
+
   }
 
 }
